@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "315415442452",
+    "project_id": "teste-da-loja",
+    "storage_bucket": "teste-da-loja.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:315415442452:android:5a1c20c04efa7435626301",
+        "android_client_info": {
+          "package_name": "com.example.lojavirtual.flutter_loja_ultimo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "315415442452-p9h71jvn7h7s03jasqsdgiucqjnhajiq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3xuObDv-XktrxBfbjM7rOqjjZwLMM_g0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "315415442452-p9h71jvn7h7s03jasqsdgiucqjnhajiq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
