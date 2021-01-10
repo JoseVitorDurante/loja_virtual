@@ -4,6 +4,7 @@ import 'package:flutter_loja_ultimo/common/custom_drawer/custom_drawer.dart';
 import 'package:flutter_loja_ultimo/common/custom_drawer/custom_drawer_header.dart';
 import 'package:flutter_loja_ultimo/models/page_manager.dart';
 import 'package:flutter_loja_ultimo/screens/login/login_screen.dart';
+import 'package:flutter_loja_ultimo/screens/products/products_screen.dart';
 import 'package:provider/provider.dart';
 
 class BaseScreen extends StatelessWidget {
@@ -20,9 +21,10 @@ class BaseScreen extends StatelessWidget {
           Scaffold(
             drawer: CustomDrawer(),
             appBar: AppBar(
-              title: Text("home1"),
+              title: Text("home"),
             ),
           ),
+          ProductScreen(),
           Scaffold(
             drawer: CustomDrawer(),
             appBar: AppBar(
