@@ -3,8 +3,12 @@ import 'package:flutter_loja_ultimo/models/product_manager.dart';
 import 'package:flutter_loja_ultimo/models/user_manager.dart';
 import 'package:flutter_loja_ultimo/screens/base/base_screen.dart';
 import 'package:flutter_loja_ultimo/screens/login/login_screen.dart';
+import 'package:flutter_loja_ultimo/screens/product/product_screen.dart';
+import 'package:flutter_loja_ultimo/screens/products/products_screen.dart';
 import 'package:flutter_loja_ultimo/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
+
+import 'models/product.dart';
 
 void main() async {
   runApp(MyApp());
@@ -40,6 +44,9 @@ class MyApp extends StatelessWidget {
           switch (settings.name) {
             case "/signup":
               return MaterialPageRoute(builder: (_) => SignUpScreen());
+            case "/product":
+              return MaterialPageRoute(
+                  builder: (_) => ProductScreen(settings.arguments as Product));
             case "/login":
               return MaterialPageRoute(builder: (_) => LoginScreen());
             case "/base":

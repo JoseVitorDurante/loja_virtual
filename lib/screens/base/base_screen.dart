@@ -24,7 +24,7 @@ class BaseScreen extends StatelessWidget {
               title: Text("home"),
             ),
           ),
-          ProductScreen(),
+          ProductsScreen(),
           Scaffold(
             drawer: CustomDrawer(),
             appBar: AppBar(

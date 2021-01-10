@@ -1,28 +1,28 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_loja_ultimo/models/page_manager.dart';
 import 'package:provider/provider.dart';
 
 class DrawerTile extends StatelessWidget {
-  @override
-  DrawerTile({this.iconData, this.title, this.page});
+
+  const DrawerTile({this.iconData, this.title, this.page});
 
   final IconData iconData;
   final String title;
   final int page;
 
+  @override
   Widget build(BuildContext context) {
     final int curPage = context.watch<PageManager>().page;
     final Color primaryColor = Theme.of(context).primaryColor;
 
     return InkWell(
-      onTap: () {
+      onTap: (){
         context.read<PageManager>().setPage(page);
       },
       child: SizedBox(
         height: 60,
         child: Row(
-          children: [
+          children: <Widget>[
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Icon(
@@ -34,8 +34,8 @@ class DrawerTile extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-                fontSize: 16,
-                color: curPage == page ? primaryColor : Colors.grey[700],
+                  fontSize: 16,
+                  color: curPage == page ? primaryColor : Colors.grey[700]
               ),
             )
           ],

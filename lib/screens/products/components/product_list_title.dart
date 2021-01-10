@@ -9,55 +9,59 @@ class ProductListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-      child: Container(
-        height: 100,
-        padding: EdgeInsets.all(8),
-        child: Row(
-          children: [
-            AspectRatio(
-              aspectRatio: 1,
-              child: Image.network(product.images.first),
-            ),
-            SizedBox(
-              width: 16,
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product.name,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8),
-                    child: Text(
-                      "A partir de",
+    return GestureDetector(
+      onTap: () =>
+          Navigator.of(context).pushNamed("/product", arguments: product),
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        child: Container(
+          height: 100,
+          padding: EdgeInsets.all(8),
+          child: Row(
+            children: [
+              AspectRatio(
+                aspectRatio: 1,
+                child: Image.network(product.images.first),
+              ),
+              SizedBox(
+                width: 16,
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product.name,
                       style: TextStyle(
-                        color: Colors.grey[400],
-                        fontSize: 12,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                  Text(
-                    "R\$ 22,00",
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child: Text(
+                        "A partir de",
+                        style: TextStyle(
+                          color: Colors.grey[400],
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            )
-          ],
+                    Text(
+                      "R\$ 22,00",
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
