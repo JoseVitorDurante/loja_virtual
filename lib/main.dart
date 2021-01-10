@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_loja_ultimo/models/product_manager.dart';
-import 'package:flutter_loja_ultimo/models/user_manager.dart';
-import 'package:flutter_loja_ultimo/screens/base/base_screen.dart';
+import 'package:flutter_loja_ultimo/screens/bases/base_screen.dart';
+import 'package:flutter_loja_ultimo/screens/cart/cart_screen.dart';
 import 'package:flutter_loja_ultimo/screens/login/login_screen.dart';
 import 'package:flutter_loja_ultimo/screens/product/product_screen.dart';
-import 'package:flutter_loja_ultimo/screens/products/products_screen.dart';
 import 'package:flutter_loja_ultimo/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
-
+import 'models/cart_manager.dart';
 import 'models/product.dart';
+import 'models/product_manager.dart';
+import 'models/user_manager.dart';
 
-void main() async {
+void main() {
   runApp(MyApp());
 }
 
@@ -27,31 +27,50 @@ class MyApp extends StatelessWidget {
           create: (_) => ProductManager(),
           lazy: false,
         ),
+        ChangeNotifierProxyProvider<UserManager, CartManager>(
+          create: (_) => CartManager(),
+          lazy: false,
+          update: (_, userManager, cartManager) =>
+          cartManager..updateUser(userManager),
+        ),
       ],
       child: MaterialApp(
-        title: 'Loja Do Vitor',
+        title: 'Loja do Daniel',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: Color.fromARGB(255, 4, 125, 141),
-          scaffoldBackgroundColor: Color.fromARGB(255, 4, 125, 141),
-          appBarTheme: AppBarTheme(
-            elevation: 0,
+          primaryColor: const Color.fromARGB(255, 4, 125, 141),
+          scaffoldBackgroundColor: const Color.fromARGB(255, 4, 125, 141),
+          appBarTheme: const AppBarTheme(
+              elevation: 0
           ),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        initialRoute: "/base",
-        onGenerateRoute: (settings) {
-          switch (settings.name) {
-            case "/signup":
-              return MaterialPageRoute(builder: (_) => SignUpScreen());
-            case "/product":
+        initialRoute: '/base',
+        onGenerateRoute: (settings){
+          switch(settings.name){
+            case '/login':
               return MaterialPageRoute(
-                  builder: (_) => ProductScreen(settings.arguments as Product));
-            case "/login":
-              return MaterialPageRoute(builder: (_) => LoginScreen());
-            case "/base":
+                  builder: (_) => LoginScreen()
+              );
+            case '/signup':
+              return MaterialPageRoute(
+                  builder: (_) => SignUpScreen()
+              );
+            case '/product':
+              return MaterialPageRoute(
+                  builder: (_) => ProductScreen(
+                      settings.arguments as Product
+                  )
+              );
+            case '/cart':
+              return MaterialPageRoute(
+                  builder: (_) => CartScreen()
+              );
+            case '/base':
             default:
-              return MaterialPageRoute(builder: (_) => BaseScreen());
+              return MaterialPageRoute(
+                  builder: (_) => BaseScreen()
+              );
           }
         },
       ),

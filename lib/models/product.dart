@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_loja_ultimo/models/item_size.dart';
 
-class Product {
+class Product extends ChangeNotifier{
   Product.fromDocument(DocumentSnapshot document) {
     id = document.documentID;
     name = document["name"] as String;
@@ -21,4 +22,41 @@ class Product {
   List<String> images;
 
   List<ItemSize> sizes;
+
+  @override
+  String toString() {
+    return 'Product{id: $id, name: $name, description: $description, images: $images}';
+  }
+
+  ItemSize _selectedSize;
+
+  ItemSize get selectedSize => _selectedSize;
+
+  set selectedSize(ItemSize value){
+    _selectedSize = value;
+    notifyListeners();
+  }
+
+  int get totalStock{
+    int stock = 0;
+    for(final size in sizes){
+      stock += size.stock;
+    }
+    return stock;
+  }
+
+  bool get hasStock {
+    return totalStock > 0;
+  }
+
+  ItemSize findSize(String nome){
+    try{
+      return sizes.firstWhere((s) => s.name == nome);
+    }catch(e){
+      print(e);
+      return null;
+    }
+  }
+
+
 }

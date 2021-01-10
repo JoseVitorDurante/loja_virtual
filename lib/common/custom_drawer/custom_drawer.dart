@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_loja_ultimo/common/custom_drawer/custom_drawer_header.dart';
-import 'package:flutter_loja_ultimo/common/custom_drawer/drawer_tile.dart';
+
+import 'custom_drawer_header.dart';
+import 'drawer_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
   @override
