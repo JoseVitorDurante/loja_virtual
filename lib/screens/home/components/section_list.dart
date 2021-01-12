@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_loja_ultimo/models/section.dart';
+import 'package:flutter_loja_ultimo/screens/home/components/item_tile.dart';
 import 'package:flutter_loja_ultimo/screens/home/components/section_header.dart';
 
 class SectionList extends StatelessWidget {
@@ -11,7 +12,7 @@ class SectionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(16),
+      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -22,13 +23,7 @@ class SectionList extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: section.items.length,
               itemBuilder: (_, index) {
-                return AspectRatio(
-                  aspectRatio: 1,
-                  child: Image.network(
-                    section.items[index].image,
-                    fit: BoxFit.cover,
-                  ),
-                );
+                return ItemTile(section.items[index]);
               },
               separatorBuilder: (_, __) => SizedBox(
                 width: 4,

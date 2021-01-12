@@ -254,6 +254,12 @@
       "languageVersion": "2.10"
     },
     {
+      "name": "transparent_image",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/transparent_image-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "1.24"
+    },
+    {
       "name": "typed_data",
       "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/typed_data-1.3.0-nullsafety.3",
       "packageUri": "lib/",
@@ -272,7 +278,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-01-11T23:44:53.789723Z",
+  "generated": "2021-01-12T00:17:35.767008Z",
   "generator": "pub",
   "generatorVersion": "2.10.4"
 }
