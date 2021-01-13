@@ -26,6 +26,19 @@ class ProductScreen extends StatelessWidget {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
+          actions: [
+            Consumer<UserManager>(
+              builder: (_, userManager, __){
+                if(userManager.adminEnabled){
+                  return IconButton(icon: Icon(Icons.edit), onPressed: (){
+                    Navigator.of(context).pushReplacementNamed("/edit_product", arguments: product);
+                  });
+                }else{
+                  return Container();
+                }
+              },
+            )
+          ],
         ),
         backgroundColor: Colors.white,
         body: ListView(

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class User {
-  User({this.email, this.password, this.id});
+  User({this.email, this.password, this.id, this.name});
 
   User.fromDocument(DocumentSnapshot document) {
     id = document.documentID;
@@ -19,6 +19,8 @@ class User {
   String password;
 
   String confirmPassword;
+
+  bool admin = false;
 
   DocumentReference get firestoreRef =>
       Firestore.instance.document("users/$id");

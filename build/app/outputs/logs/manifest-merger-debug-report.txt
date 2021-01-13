@@ -6,6 +6,7 @@ INJECTED from C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\android\a
 INJECTED from C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\android\app\src\main\AndroidManifest.xml:1:1-47:12
 MERGED from C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\android\app\src\main\AndroidManifest.xml:1:1-47:12
 MERGED from [:firebase_auth] C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
+MERGED from [:vibration] C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\build\vibration\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:cloud_firestore] C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:firebase_storage] C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\build\firebase_storage\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:firebase_core] C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
@@ -143,6 +144,8 @@ INJECTED from C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\android\a
 INJECTED from C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\android\app\src\main\AndroidManifest.xml
 MERGED from [:firebase_auth] C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_auth] C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:vibration] C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\build\vibration\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:vibration] C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\build\vibration\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:cloud_firestore] C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:cloud_firestore] C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_storage] C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\build\firebase_storage\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
@@ -255,6 +258,10 @@ ADDED from [:firebase_auth] C:\Users\josev\AndroidStudioProjects\flutter_loja_ul
 		ADDED from [:firebase_auth] C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
 	android:name
 		ADDED from [:firebase_auth] C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-122
+uses-permission#android.permission.VIBRATE
+ADDED from [:vibration] C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\build\vibration\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-66
+	android:name
+		ADDED from [:vibration] C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\build\vibration\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-63
 meta-data#com.google.firebase.components:io.flutter.plugins.firebase.cloudfirestore.FlutterFirebaseAppRegistrar
 ADDED from [:cloud_firestore] C:\Users\josev\AndroidStudioProjects\flutter_loja_ultimo\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
 	android:value
