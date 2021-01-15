@@ -7,9 +7,11 @@ import 'components/sizes_form.dart';
 class EditProductScreen extends StatelessWidget {
   final Product product;
 
+  final bool editig;
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  EditProductScreen(this.product);
+  EditProductScreen(Product p) :editig = p != null, product = p != null ? p.clone() : Product();
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class EditProductScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Editar anuncio"),
+        title: Text(editig ? "Editar produto" : "Criar produto"),
         centerTitle: true,
       ),
       body: Form(
@@ -45,6 +47,7 @@ class EditProductScreen extends StatelessWidget {
                       if (name.length < 3) return "Titulo muito curto";
                       return null;
                     },
+                    onChanged: (name) => product.name = name,
                   ),
                   Text(
                     "A partir de ",
@@ -85,13 +88,23 @@ class EditProductScreen extends StatelessWidget {
                       if (desc.length < 6) return "Descrição muito curta";
                       return null;
                     },
+                    onChanged: (desc) => product.description = desc,
                   ),
                   SizesForm(product),
-                  RaisedButton(
-                    onPressed: () {
-                      if (formKey.currentState.validate()) {}
-                    },
-                    child: Text("Salvar"),
+                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 44,
+                    child: RaisedButton(
+                      color: primaryColor,
+                      disabledColor: primaryColor.withAlpha(100),
+                      onPressed: () {
+                        if (formKey.currentState.validate()) {
+                            formKey.currentState.save();
+                            product.save();
+                        }
+                      },
+                      child: Text("Salvar", style: TextStyle(fontSize: 18, color: Colors.white),),
+                    ),
                   ),
                 ],
               ),

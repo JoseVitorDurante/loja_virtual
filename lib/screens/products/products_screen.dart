@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_loja_ultimo/common/custom_drawer/custom_drawer.dart';
 import 'package:flutter_loja_ultimo/models/product_manager.dart';
+import 'package:flutter_loja_ultimo/models/user_manager.dart';
 import 'package:flutter_loja_ultimo/screens/products/components/product_list_title.dart';
 import 'package:provider/provider.dart';
 
@@ -64,6 +65,21 @@ class ProductsScreen extends StatelessWidget {
                   });
             }
           }),
+          Consumer<UserManager>(
+            builder: (_, userManager, __) {
+              if (userManager.adminEnabled) {
+                return IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(
+                        "/edit_product",
+                      );
+                    });
+              } else {
+                return Container();
+              }
+            },
+          )
         ],
       ),
       body: Consumer<ProductManager>(builder: (_, productManager, __) {
@@ -80,7 +96,7 @@ class ProductsScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         foregroundColor: Theme.of(context).primaryColor,
-        onPressed: (){
+        onPressed: () {
           Navigator.of(context).pushNamed("/cart");
         },
         child: Icon(Icons.shopping_cart),

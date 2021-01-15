@@ -2,7 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_loja_ultimo/models/item_size.dart';
 
-class Product extends ChangeNotifier{
+class Product extends ChangeNotifier {
+  Product({this.id, this.name, this.description, this.images, this.sizes}) {
+    images = images ?? [];
+    sizes = sizes ?? [];
+  }
+
   Product.fromDocument(DocumentSnapshot document) {
     id = document.documentID;
     name = document["name"] as String;
@@ -12,6 +17,10 @@ class Product extends ChangeNotifier{
         .map((s) => ItemSize.fromMap(s as Map<String, dynamic>))
         .toList();
   }
+
+  final Firestore firestore = Firestore.instance;
+
+  DocumentReference get firestoreRef => firestore.document("products/$id");
 
   String id;
 
@@ -25,21 +34,23 @@ class Product extends ChangeNotifier{
 
   @override
   String toString() {
-    return 'Product{id: $id, name: $name, description: $description, images: $images}';
+    return 'Product{id: $id, name: $name, description: $description, images: $images, sizes: $sizes}';
   }
+
+  List<dynamic> newImage;
 
   ItemSize _selectedSize;
 
   ItemSize get selectedSize => _selectedSize;
 
-  set selectedSize(ItemSize value){
+  set selectedSize(ItemSize value) {
     _selectedSize = value;
     notifyListeners();
   }
 
-  int get totalStock{
+  int get totalStock {
     int stock = 0;
-    for(final size in sizes){
+    for (final size in sizes) {
       stock += size.stock;
     }
     return stock;
@@ -51,21 +62,49 @@ class Product extends ChangeNotifier{
 
   num get basePrice {
     num lowest = double.infinity;
-    for(final size in sizes){
-      if(size.price < lowest && size.hasStock)
+    for (final size in sizes) {
+      if (size != null) if ((size.price < lowest) && size.hasStock)
         lowest = size.price;
     }
     return lowest;
   }
 
-  ItemSize findSize(String nome){
-    try{
+  ItemSize findSize(String nome) {
+    try {
       return sizes.firstWhere((s) => s.name == nome);
-    }catch(e){
+    } catch (e) {
       print(e);
       return null;
     }
   }
 
+  List<Map<String, dynamic>> exportSizeList(){
+    return sizes.map((size) => size.toMap()).toList();
+  }
+
+  Future<void> save()async{
+    final Map<String, dynamic> data = {
+      "name": name,
+      "description": description,
+      "sizes": exportSizeList(),
+    };
+
+    if(id == null){
+      final doc = await firestore.collection("products").add(data);
+      id = doc.documentID;
+    }else{
+      await firestoreRef.updateData(data);
+    }
+  }
+
+  Product clone() {
+    return Product(
+        id: id,
+        name: name,
+        description: description,
+        images: List.from(images),
+      sizes: sizes.map((size) => size.clone()).toList(),
+    );
+  }
 
 }
