@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_loja_ultimo/common/custom_drawer/custom_drawer.dart';
 import 'package:flutter_loja_ultimo/models/home_manager.dart';
+import 'package:flutter_loja_ultimo/models/user_manager.dart';
 import 'package:flutter_loja_ultimo/screens/home/components/section_staggered.dart';
 import 'package:provider/provider.dart';
 
+import 'components/add_section_widget.dart';
 import 'components/section_list.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -39,22 +41,57 @@ class HomeScreen extends StatelessWidget {
                 actions: [
                   IconButton(
                       icon: Icon(Icons.shopping_cart),
-                      onPressed: () => Navigator.of(context).pushNamed("/cart"))
+                      onPressed: () =>
+                          Navigator.of(context).pushNamed("/cart")),
+                  Consumer2<UserManager, HomeManager>(
+                      builder: (_, userManager, homeManager, __) {
+                    if (userManager.adminEnabled) {
+                      if (homeManager.editing) {
+                        return PopupMenuButton(onSelected: (e) {
+                          if (e == "Salvar") {
+                            homeManager.saveEditing();
+                          } else {
+                            homeManager.discardEditing();
+                          }
+                        }, itemBuilder: (_) {
+                          return ["Salvar", "Descartar"].map((e) {
+                            return PopupMenuItem(
+                              child: Text(e),
+                              value: e,
+                            );
+                          }).toList();
+                        });
+                      } else {
+                        return IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () {
+                            homeManager.enterEditing();
+                          },
+                        );
+                      }
+                    } else
+                      return Container();
+                  })
                 ],
               ),
               Consumer<HomeManager>(
-                builder: (_, homeManager, __){
-                  final List<Widget> children = homeManager.sections.map<Widget>((section){
-                    switch(section.type){
-                      case"List":
+                builder: (_, homeManager, __) {
+                  final List<Widget> children =
+                      homeManager.sections.map<Widget>((section) {
+                    switch (section.type) {
+                      case "List":
                         return SectionList(section);
-                      case"Staggered":
+                      case "Staggered":
                         return SectionStaggered(section);
                       default:
                         return Container();
                     }
                   }).toList();
-                  return SliverList(delegate: SliverChildListDelegate(children));
+
+                  if(homeManager.editing)
+                    children.add(AddSectionWidget(homeManager));
+                  return SliverList(
+                      delegate: SliverChildListDelegate(children));
                 },
               )
             ],

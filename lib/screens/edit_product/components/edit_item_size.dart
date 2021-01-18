@@ -65,7 +65,7 @@ class EditItemSize extends StatelessWidget {
               prefixText: "R\$ "
             ),
             keyboardType: TextInputType.numberWithOptions(decimal: true),
-            onChanged: (price) => size.price = int.tryParse(price),
+            onChanged: (price) => size.price = num.tryParse(price),
           ),
         ),
         CustomIconButton(
