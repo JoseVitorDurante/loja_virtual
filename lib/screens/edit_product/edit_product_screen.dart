@@ -7,15 +7,15 @@ import 'components/images_form.dart';
 import 'components/sizes_form.dart';
 
 class EditProductScreen extends StatelessWidget {
-  final Product product;
 
-  final bool editig;
+  EditProductScreen(Product p) :
+        editing = p != null,
+        product = p != null ? p.clone() : Product();
+
+  final Product product;
+  final bool editing;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  EditProductScreen(Product p)
-      : editig = p != null,
-        product = p != null ? p.clone() : Product();
 
   @override
   Widget build(BuildContext context) {
@@ -24,113 +24,115 @@ class EditProductScreen extends StatelessWidget {
     return ChangeNotifierProvider.value(
       value: product,
       child: Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text(editig ? "Editar produto" : "Criar produto"),
+          title: Text(editing ? 'Editar Produto' : 'Criar Produto'),
           centerTitle: true,
         ),
+        backgroundColor: Colors.white,
         body: Form(
           key: formKey,
           child: ListView(
-            children: [
+            children: <Widget>[
               ImagesForm(product),
               Padding(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
+                  children: <Widget>[
                     TextFormField(
                       initialValue: product.name,
-                      decoration: InputDecoration(
-                        hintText: "Titulo",
+                      decoration: const InputDecoration(
+                        hintText: 'Título',
                         border: InputBorder.none,
                       ),
                       style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600
                       ),
-                      validator: (name) {
-                        if (name.length < 3) return "Titulo muito curto";
+                      validator: (name){
+                        if(name.length < 6)
+                          return 'Título muito curto';
                         return null;
                       },
-                      onChanged: (name) => product.name = name,
+                      onSaved: (name) => product.name = name,
                     ),
-                    Text(
-                      "A partir de ",
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 13,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Text(
+                        'A partir de',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 13,
+                        ),
                       ),
                     ),
                     Text(
-                      "R\$ ... ",
+                      'R\$ ...',
                       style: TextStyle(
-                        color: primaryColor,
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
+                        color: primaryColor,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
                       child: Text(
-                        "Descrição ",
+                        'Descrição',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
+                            fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                     ),
                     TextFormField(
                       initialValue: product.description,
-                      style: TextStyle(
-                        fontSize: 16,
+                      style: const TextStyle(
+                          fontSize: 16
                       ),
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Descrição",
+                      decoration: const InputDecoration(
+                        hintText: 'Descrição',
+                        border: InputBorder.none
                       ),
                       maxLines: null,
-                      validator: (desc) {
-                        if (desc.length < 6) return "Descrição muito curta";
+                      validator: (desc){
+                        if(desc.length < 10)
+                          return 'Descrição muito curta';
                         return null;
                       },
-                      onChanged: (desc) => product.description = desc,
+                      onSaved: (desc) => product.description = desc,
                     ),
                     SizesForm(product),
-                    SizedBox(
-                      height: 20,
+                    const SizedBox(height: 20,),
+                    Consumer<Product>(
+                      builder: (_, product, __){
+                        return SizedBox(
+                          height: 44,
+                          child: RaisedButton(
+                            onPressed: !product.loading ? () async {
+                              if(formKey.currentState.validate()){
+                                formKey.currentState.save();
+
+                                await product.save();
+
+                                context.read<ProductManager>()
+                                    .update(product);
+
+                                Navigator.of(context).pop();
+                              }
+                            } : null,
+                            textColor: Colors.white,
+                            color: primaryColor,
+                            disabledColor: primaryColor.withAlpha(100),
+                            child: product.loading
+                                ? CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation(Colors.white),
+                                  )
+                                : const Text(
+                              'Salvar',
+                              style: TextStyle(fontSize: 18.0),
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                    Consumer<Product>(builder: (_, product, __) {
-                      return SizedBox(
-                        height: 44,
-                        child: RaisedButton(
-                          color: primaryColor,
-                          disabledColor: primaryColor.withAlpha(100),
-                          onPressed: !product.loading
-                              ? () async{
-                                  if (formKey.currentState.validate()) {
-                                    formKey.currentState.save();
-
-                                    await product.save();
-
-                                    context.read<ProductManager>().update(product);
-
-                                    Navigator.of(context).pop();
-                                  }
-                                }
-                              : null,
-                          child: product.loading
-                              ? CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation(Colors.white),
-                          )
-                              : Text(
-                                  "Salvar",
-                                  style: TextStyle(
-                                      fontSize: 18, color: Colors.white),
-                                ),
-                        ),
-                      );
-                    })
                   ],
                 ),
               )

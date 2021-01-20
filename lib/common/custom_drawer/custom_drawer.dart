@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_loja_ultimo/common/custom_drawer/custom_drawer_header.dart';
 import 'package:flutter_loja_ultimo/models/user_manager.dart';
 import 'package:provider/provider.dart';
 
+import 'custom_drawer_header.dart';
 import 'drawer_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -14,14 +14,14 @@ class CustomDrawer extends StatelessWidget {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    const Color.fromARGB(255, 203, 236, 241),
-                    Colors.white,
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                )
+              gradient: LinearGradient(
+                colors: [
+                  const Color.fromARGB(255, 203, 236, 241),
+                  Colors.white,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              )
             ),
           ),
           ListView(

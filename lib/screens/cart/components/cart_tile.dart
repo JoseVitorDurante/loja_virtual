@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/josev/AndroidStudioProjects/flutter_loja_ultimo/lib/common/custom_icon_button.dart';
+import 'package:flutter_loja_ultimo/common/custom_icon_button.dart';
 import 'package:flutter_loja_ultimo/models/cart_product.dart';
 import 'package:provider/provider.dart';
 
 class CartTile extends StatelessWidget {
-  final CartProduct cartProduct;
 
-  const CartTile({this.cartProduct});
+  const CartTile(this.cartProduct);
+
+  final CartProduct cartProduct;
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
       value: cartProduct,
       child: Card(
-        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
-            children: [
+            children: <Widget>[
               SizedBox(
                 height: 80,
                 width: 80,
@@ -25,57 +26,72 @@ class CartTile extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.only(left: 16),
+                  padding: const EdgeInsets.only(left: 16),
                   child: Column(
-                    children: [
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
                       Text(
                         cartProduct.product.name,
                         style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 17),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 17.0,
+                        ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8),
-                        child: Text("Tamanho: ${cartProduct.size}",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w300, fontSize: 12)),
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Text(
+                          'Tamanho: ${cartProduct.size}',
+                          style: TextStyle(fontWeight: FontWeight.w300),
+                        ),
                       ),
-                      Consumer<CartProduct>(builder: (_, cartProduct, __) {
-                        if (cartProduct.hasStock)
-                          return Text(
-                              "R\$ ${cartProduct.unitPrice.toStringAsFixed(2)}",
+                      Consumer<CartProduct>(
+                        builder: (_, cartProduct, __){
+                          if(cartProduct.hasStock)
+                            return Text(
+                              'R\$ ${cartProduct.unitPrice.toStringAsFixed(2)}',
                               style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 17));
-                        else
-                          return Text("Sem estoque suficiente",
-                              style:
-                                  TextStyle(color: Colors.red, fontSize: 12));
-                      })
+                                  color: Theme.of(context).primaryColor,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold
+                              ),
+                            );
+                          else
+                            return Text(
+                              'Sem estoque suficiente',
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 12,
+                              ),
+                            );
+                        },
+                      )
                     ],
                   ),
                 ),
               ),
-              Consumer<CartProduct>(builder: (_, cartProduct, __) {
-                return Column(
-                  children: [
-                    CustomIconButton(
-                      iconData: Icons.add,
-                      color: Theme.of(context).primaryColor,
-                      onTap: cartProduct.increment,
-                    ),
-                    Text(
-                      "${cartProduct.quantity}",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    CustomIconButton(
-                      iconData: Icons.remove,
-                      color: cartProduct.quantity > 1
-                          ? Theme.of(context).primaryColor
-                          : Colors.red,
-                      onTap: cartProduct.decrement,
-                    ),
-                  ],
-                );
-              })
+              Consumer<CartProduct>(
+                builder: (_, cartProduct, __){
+                  return Column(
+                    children: <Widget>[
+                      CustomIconButton(
+                        iconData: Icons.add,
+                        color: Theme.of(context).primaryColor,
+                        onTap: cartProduct.increment,
+                      ),
+                      Text(
+                        '${cartProduct.quantity}',
+                        style: const TextStyle(fontSize: 20),
+                      ),
+                      CustomIconButton(
+                        iconData: Icons.remove,
+                        color: cartProduct.quantity > 1 ?
+                          Theme.of(context).primaryColor : Colors.red,
+                        onTap: cartProduct.decrement,
+                      ),
+                    ],
+                  );
+                },
+              )
             ],
           ),
         ),

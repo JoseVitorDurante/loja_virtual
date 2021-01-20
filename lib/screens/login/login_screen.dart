@@ -1,4 +1,5 @@
-import 'package:flutter_loja_ultimo/helps/validators.dart';
+
+import 'package:flutter_loja_ultimo/helpers/validators.dart';
 import 'package:flutter_loja_ultimo/models/user.dart';
 import 'package:flutter_loja_ultimo/models/user_manager.dart';
 import 'package:provider/provider.dart';
@@ -76,21 +77,21 @@ class LoginScreen extends StatelessWidget {
                         onPressed: userManager.loading ? null : (){
                           if(formKey.currentState.validate()){
                             userManager.signIn(
-                                user: User(
-                                    email: emailController.text,
-                                    password: passController.text
-                                ),
-                                onFail: (e){
-                                  scaffoldKey.currentState.showSnackBar(
-                                      SnackBar(
-                                        content: Text('Falha ao entrar: $e'),
-                                        backgroundColor: Colors.red,
-                                      )
-                                  );
-                                },
-                                onSuccess: (){
-                                  Navigator.of(context).pop();
-                                }
+                              user: User(
+                                  email: emailController.text,
+                                  password: passController.text
+                              ),
+                              onFail: (e){
+                                scaffoldKey.currentState.showSnackBar(
+                                    SnackBar(
+                                      content: Text('Falha ao entrar: $e'),
+                                      backgroundColor: Colors.red,
+                                    )
+                                );
+                              },
+                              onSuccess: (){
+                                Navigator.of(context).pop();
+                              }
                             );
                           }
                         },

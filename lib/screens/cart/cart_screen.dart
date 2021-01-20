@@ -10,24 +10,28 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Carrinho"),
+        title: const Text('Carrinho'),
         centerTitle: true,
       ),
-      body: Consumer<CartManager>(builder: (_, cartManager, __) {
-        return ListView(
-          children: [
-            Column(
-              children: cartManager.items
-                  .map((cartProduct) => CartTile(cartProduct: cartProduct))
-                  .toList(),
-            ),
-            PriceCard(
-              buttonText: "Continuar para Entrega",
-              onPressed: cartManager.isCartValid ? () {} : null,
-            ),
-          ],
-        );
-      }),
+      body: Consumer<CartManager>(
+        builder: (_, cartManager, __){
+          return ListView(
+            children: <Widget>[
+              Column(
+                children: cartManager.items.map(
+                        (cartProduct) => CartTile(cartProduct)
+                ).toList(),
+              ),
+              PriceCard(
+                buttonText: 'Continuar para Entrega',
+                onPressed: cartManager.isCartValid ? (){
+
+                } : null,
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }

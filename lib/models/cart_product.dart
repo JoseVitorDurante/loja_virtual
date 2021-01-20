@@ -1,28 +1,29 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_loja_ultimo/models/item_size.dart';
 import 'package:flutter_loja_ultimo/models/product.dart';
 
+import 'item_size.dart';
+
 class CartProduct extends ChangeNotifier {
-  CartProduct.fromProduct(this.product) {
+
+  CartProduct.fromProduct(this.product){
     productId = product.id;
     quantity = 1;
     size = product.selectedSize.name;
   }
 
-  CartProduct.fromDocument(DocumentSnapshot document) {
+  CartProduct.fromDocument(DocumentSnapshot document){
     id = document.documentID;
-    productId = document.data["pid"] as String;
-    quantity = document.data["quantity"] as int;
-    size = document.data["size"] as String;
+    productId = document.data['pid'] as String;
+    quantity = document.data['quantity'] as int;
+    size = document.data['size'] as String;
 
-    firestore
-        .document("products/$productId")
-        .get()
-        .then((doc){
-      product = Product.fromDocument(doc);
-      notifyListeners();
-    });
+    firestore.document('products/$productId').get().then(
+      (doc) {
+        product = Product.fromDocument(doc);
+        notifyListeners();
+      }
+    );
   }
 
   final Firestore firestore = Firestore.instance;
@@ -30,9 +31,7 @@ class CartProduct extends ChangeNotifier {
   String id;
 
   String productId;
-
   int quantity;
-
   String size;
 
   Product product;
@@ -43,8 +42,7 @@ class CartProduct extends ChangeNotifier {
   }
 
   num get unitPrice {
-    if(product == null)
-      return 0;
+    if(product == null) return 0;
     return itemSize?.price ?? 0;
   }
 
@@ -72,9 +70,10 @@ class CartProduct extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool get hasStock{
+  bool get hasStock {
     final size = itemSize;
     if(size == null) return false;
     return size.stock >= quantity;
   }
+
 }

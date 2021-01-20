@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_loja_ultimo/models/cart_product.dart';
 import 'package:flutter_loja_ultimo/models/product.dart';
 import 'package:flutter_loja_ultimo/models/user.dart';
 import 'package:flutter_loja_ultimo/models/user_manager.dart';
+
+import 'cart_product.dart';
 
 class CartManager extends ChangeNotifier {
 
@@ -26,7 +27,7 @@ class CartManager extends ChangeNotifier {
     final QuerySnapshot cartSnap = await user.cartReference.getDocuments();
 
     items = cartSnap.documents.map(
-            (d) => CartProduct.fromDocument(d)..addListener(_onItemUpdated)
+        (d) => CartProduct.fromDocument(d)..addListener(_onItemUpdated)
     ).toList();
   }
 

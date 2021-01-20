@@ -2,51 +2,54 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_loja_ultimo/models/product.dart';
 
-class ProductManager extends ChangeNotifier {
-  ProductManager() {
+class ProductManager extends ChangeNotifier{
+
+  ProductManager(){
     _loadAllProducts();
   }
-
+  
   final Firestore firestore = Firestore.instance;
 
   List<Product> allProducts = [];
 
-  String _search = "";
+  String _search = '';
 
   String get search => _search;
-
-  set search(String value) {
+  set search(String value){
     _search = value;
     notifyListeners();
   }
 
-  List<Product> get filteredProduct {
-    final List<Product> filteredProduct = [];
+  List<Product> get filteredProducts {
+    final List<Product> filteredProducts = [];
 
-    if (search.isEmpty) {
-      filteredProduct.addAll(allProducts);
+    if(search.isEmpty){
+      filteredProducts.addAll(allProducts);
     } else {
-      filteredProduct.addAll(allProducts
-          .where((p) => p.name.toLowerCase().contains(search.toLowerCase())));
+      filteredProducts.addAll(
+        allProducts.where(
+          (p) => p.name.toLowerCase().contains(search.toLowerCase())
+        )
+      );
     }
 
-    return filteredProduct;
+    return filteredProducts;
   }
-
+  
   Future<void> _loadAllProducts() async {
-    final QuerySnapshot snapshot =
-        await firestore.collection("products").getDocuments();
+    final QuerySnapshot snapProducts =
+      await firestore.collection('products').getDocuments();
 
-    allProducts =
-        snapshot.documents.map((d) => Product.fromDocument(d)).toList();
+    allProducts = snapProducts.documents.map(
+            (d) => Product.fromDocument(d)).toList();
 
     notifyListeners();
   }
 
   Product findProductById(String id){
-    try{
+    try {
       return allProducts.firstWhere((p) => p.id == id);
-    }catch(e){
+    } catch (e){
       return null;
     }
   }

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_loja_ultimo/helps/firebase_errors.dart';
+import 'package:flutter_loja_ultimo/helpers/firebase_errors.dart';
 import 'package:flutter_loja_ultimo/models/user.dart';
 
 class UserManager extends ChangeNotifier {
@@ -28,7 +28,7 @@ class UserManager extends ChangeNotifier {
           email: user.email, password: user.password);
 
       await _loadCurrentUser(firebaseUser: result.user);
-
+      
       onSuccess();
     } on PlatformException catch (e){
       onFail(getErrorString(e.code));
@@ -72,7 +72,7 @@ class UserManager extends ChangeNotifier {
           .document(currentUser.uid).get();
       user = User.fromDocument(docUser);
 
-      final docAdmin = await firestore.collection("admins").document(user.id).get();
+      final docAdmin = await firestore.collection('admins').document(user.id).get();
       if(docAdmin.exists){
         user.admin = true;
       }
@@ -80,7 +80,6 @@ class UserManager extends ChangeNotifier {
       notifyListeners();
     }
   }
-
 
   bool get adminEnabled => user != null && user.admin;
 }

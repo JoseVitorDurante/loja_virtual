@@ -1,5 +1,4 @@
 import 'package:carousel_pro/carousel_pro.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_loja_ultimo/models/cart_manager.dart';
 import 'package:flutter_loja_ultimo/models/product.dart';
@@ -9,9 +8,10 @@ import 'package:provider/provider.dart';
 import 'components/size_widget.dart';
 
 class ProductScreen extends StatelessWidget {
-  final Product product;
 
   const ProductScreen(this.product);
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -21,32 +21,35 @@ class ProductScreen extends StatelessWidget {
       value: product,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-            product.name,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
+          title: Text(product.name),
           centerTitle: true,
-          actions: [
+          actions: <Widget>[
             Consumer<UserManager>(
               builder: (_, userManager, __){
                 if(userManager.adminEnabled){
-                  return IconButton(icon: Icon(Icons.edit), onPressed: (){
-                    Navigator.of(context).pushReplacementNamed("/edit_product", arguments: product);
-                  });
-                }else{
+                  return IconButton(
+                    icon: Icon(Icons.edit),
+                    onPressed: (){
+                      Navigator.of(context).pushReplacementNamed(
+                        '/edit_product',
+                        arguments: product
+                      );
+                    },
+                  );
+                } else {
                   return Container();
                 }
               },
-            ),
+            )
           ],
         ),
         backgroundColor: Colors.white,
         body: ListView(
-          children: [
+          children: <Widget>[
             AspectRatio(
               aspectRatio: 1,
               child: Carousel(
-                images: product.images.map((url) {
+                images: product.images.map((url){
                   return NetworkImage(url);
                 }).toList(),
                 dotSize: 4,
@@ -57,83 +60,98 @@ class ProductScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
+                children: <Widget>[
                   Text(
                     product.name,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "A partir de",
                     style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey[600]),
-                  ),
-                  Text(
-                    "R\$ ${product.basePrice.toStringAsFixed(2)} ",
-                    style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: primaryColor),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600
+                    ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 16, bottom: 8),
+                    padding: const EdgeInsets.only(top: 8),
                     child: Text(
-                      "Descrição",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                      'A partir de',
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 13,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    'R\$ ${product.basePrice.toStringAsFixed(2)}',
+                    style: TextStyle(
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.bold,
+                      color: primaryColor,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16, bottom: 8),
+                    child: Text(
+                      'Descrição',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500
+                      ),
                     ),
                   ),
                   Text(
                     product.description,
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(
+                      fontSize: 16
+                    ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 16, bottom: 8),
+                    padding: const EdgeInsets.only(top: 16, bottom: 8),
                     child: Text(
-                      "Tamanhos",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                      'Tamanhos',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500
+                      ),
                     ),
                   ),
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
-                    children: product.sizes.map((s) {
+                    children: product.sizes.map((s){
                       return SizeWidget(size: s);
                     }).toList(),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20,),
                   if(product.hasStock)
-                  Consumer2<UserManager, Product>(
-                      builder: (_, userManager, product, __) {
-                    return SizedBox(
-                      height: 44,
-                      child: RaisedButton(
-                        onPressed: product.selectedSize != null ? (){
-                          if(userManager.isLoggedIn){
-                            context.read<CartManager>().addToCart(product);
-                            Navigator.of(context).pushNamed("/cart");
-                          }else{
-                            Navigator.of(context).pushNamed("/login");
-                          }
-                        } : null,
-                        color: primaryColor,
-                        textColor: Colors.white,
-                        child: Text(userManager.isLoggedIn
-                            ? "Adicionar ao carrinho"
-                            : "Entre para comprar", style: TextStyle(fontSize: 18),),
-                      ),
-                    );
-                  })
+                    Consumer2<UserManager, Product>(
+                      builder: (_, userManager, product, __){
+                        return SizedBox(
+                          height: 44,
+                          child: RaisedButton(
+                            onPressed: product.selectedSize != null ? (){
+                              if(userManager.isLoggedIn){
+                                context.read<CartManager>().addToCart(product);
+                                Navigator.of(context).pushNamed('/cart');
+                              } else {
+                                Navigator.of(context).pushNamed('/login');
+                              }
+                            } : null,
+                            color: primaryColor,
+                            textColor: Colors.white,
+                            child: Text(
+                              userManager.isLoggedIn
+                                  ? 'Adicionar ao Carrinho'
+                                  : 'Entre para Comprar',
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                          ),
+                        );
+                      },
+                    )
                 ],
               ),
-            ),
+            )
           ],
         ),
       ),

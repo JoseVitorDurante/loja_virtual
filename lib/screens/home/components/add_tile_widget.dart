@@ -1,31 +1,48 @@
 import 'dart:io';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_loja_ultimo/models/section.dart';
+import 'package:flutter_loja_ultimo/models/section_item.dart';
 import 'package:flutter_loja_ultimo/screens/edit_product/components/image_source_sheet.dart';
+import 'package:provider/provider.dart';
 
 class AddTileWidget extends StatelessWidget {
-  void onImageSelected(File file){
-
-  }
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(aspectRatio: 1,child: GestureDetector(
-      onTap: (){
-        if(Platform.isAndroid){
-          showModalBottomSheet(context: context, builder: (context) =>
-            ImageSourceSheet(onImageSelected: onImageSelected,)
-          );
-        }else{
-          showModalBottomSheet(context: context, builder: (context) =>
-            ImageSourceSheet(onImageSelected: onImageSelected,)
-          );
-        }
-      },
-      child: Container(
-        color: Colors.white.withAlpha(100),
-        child: Icon(Icons.add, color: Colors.white,),
+    final section = context.watch<Section>();
+
+    void onImageSelected(File file){
+      section.addItem(SectionItem(image: file));
+      Navigator.of(context).pop();
+    }
+
+    return AspectRatio(
+      aspectRatio: 1,
+      child: GestureDetector(
+        onTap: (){
+          if (Platform.isAndroid) {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) =>
+                  ImageSourceSheet(onImageSelected: onImageSelected),
+            );
+          } else {
+            showCupertinoModalPopup(
+              context: context,
+              builder: (context) =>
+                  ImageSourceSheet(onImageSelected: onImageSelected),
+            );
+          }
+        },
+        child: Container(
+          color: Colors.white.withAlpha(30),
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+        ),
       ),
-    ),);
+    );
   }
 }

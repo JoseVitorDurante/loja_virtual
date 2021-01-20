@@ -1,13 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_loja_ultimo/models/item_size.dart';
 import 'package:flutter_loja_ultimo/models/product.dart';
 import 'package:provider/provider.dart';
 
 class SizeWidget extends StatelessWidget {
-  final ItemSize size;
 
   const SizeWidget({this.size});
+
+  final ItemSize size;
 
   @override
   Widget build(BuildContext context) {
@@ -30,24 +30,25 @@ class SizeWidget extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(
-          color: color,
-        )),
+          border: Border.all(
+            color: color
+          ),
+        ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: <Widget>[
             Container(
               color: color,
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
               child: Text(
                 size.name,
                 style: TextStyle(color: Colors.white),
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                "R\$ ${size.price.toStringAsFixed(2)}",
+                'R\$ ${size.price.toStringAsFixed(2)}',
                 style: TextStyle(
                   color: color,
                 ),
