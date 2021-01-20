@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_loja_ultimo/screens/address/address_screen.dart';
 import 'package:flutter_loja_ultimo/screens/bases/base_screen.dart';
 import 'package:flutter_loja_ultimo/screens/cart/cart_screen.dart';
 import 'package:flutter_loja_ultimo/screens/edit_product/edit_product_screen.dart';
@@ -90,6 +91,10 @@ class MyApp extends StatelessWidget {
             case '/select_product':
               return MaterialPageRoute(
                   builder: (_) => SelectProductScreen()
+              );
+            case '/address':
+              return MaterialPageRoute(
+                  builder: (_) => AddressScreen()
               );
             case '/base':
             default:

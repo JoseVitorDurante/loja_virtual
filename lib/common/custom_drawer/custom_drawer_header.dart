@@ -18,7 +18,7 @@ class CustomDrawerHeader extends StatelessWidget {
               Text(
                 'Loja do\nDaniel',
                 style: TextStyle(
-                  fontSize: 34,
+                  fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -27,7 +27,7 @@ class CustomDrawerHeader extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
