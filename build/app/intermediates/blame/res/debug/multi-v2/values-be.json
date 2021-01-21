@@ -21,7 +21,24 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\josev\\.gradle\\caches\\transforms-2\\files-2.1\\4fd5aab7fcb38c55e7b3a220565e6907\\jetified-play-services-basement-17.1.0\\res\\values-be\\values.xml",
+                    "source": "C:\\Users\\josev\\.gradle\\caches\\transforms-2\\files-2.1\\5e415dcf0171c2769a7c07769f1a2292\\core-1.2.0\\res\\values-be\\values-be.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "48",
+                        "startColumns": "4",
+                        "startOffsets": "5637",
+                        "endColumns": "100",
+                        "endOffsets": "5733"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\josev\\.gradle\\caches\\transforms-2\\files-2.1\\c9a3a38e422859c682aa377403d7df05\\jetified-play-services-basement-17.2.1\\res\\values-be\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -38,7 +55,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\josev\\.gradle\\caches\\transforms-2\\files-2.1\\05bba5a22f1fb20b730fb8c473e5665f\\play-services-base-17.1.0\\res\\values-be\\values.xml",
+                    "source": "C:\\Users\\josev\\.gradle\\caches\\transforms-2\\files-2.1\\dffab43043454c4388d12cc0269ef91a\\play-services-base-17.2.1\\res\\values-be\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -52,23 +69,6 @@
                         "startOffsets": "2835,2944,3138,3265,3377,3591,3719,3864,4202,4423,4532,4726,4856,5068,5257,5356,5448",
                         "endColumns": "108,193,126,111,213,127,144,132,220,108,193,129,211,188,98,91,107",
                         "endOffsets": "2939,3133,3260,3372,3586,3714,3859,3992,4418,4527,4721,4851,5063,5252,5351,5443,5551"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\josev\\.gradle\\caches\\transforms-2\\files-2.1\\cc05cbb20248c793dee14f7d6605fdfb\\core-1.1.0\\res\\values-be\\values-be.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    },
-                    "to": {
-                        "startLines": "48",
-                        "startColumns": "4",
-                        "startOffsets": "5637",
-                        "endColumns": "100",
-                        "endOffsets": "5733"
                     }
                 }
             ]
