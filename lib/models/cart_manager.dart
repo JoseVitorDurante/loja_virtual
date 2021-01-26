@@ -24,7 +24,7 @@ class CartManager extends ChangeNotifier {
 
   bool get loading => _loading;
 
-  set loading(bool value){
+  set loading(bool value) {
     _loading = value;
     notifyListeners();
   }
@@ -53,8 +53,9 @@ class CartManager extends ChangeNotifier {
         .toList();
   }
 
-  Future<void> _loadUserAddress()async{
-    if(user.address != null && await calculateDelivery(user.address.long, user.address.lat)){
+  Future<void> _loadUserAddress() async {
+    if (user.address != null &&
+        await calculateDelivery(user.address.long, user.address.lat)) {
       this.address = user.address;
       notifyListeners();
     }
@@ -81,6 +82,14 @@ class CartManager extends ChangeNotifier {
     items.removeWhere((p) => p.id == cartProduct.id);
     user.cartReference.document(cartProduct.id).delete();
     cartProduct.removeListener(_onItemUpdated);
+    notifyListeners();
+  }
+
+  void clear() {
+    for (final cartProduct in items) {
+      user.cartReference.document(cartProduct.id).delete();
+    }
+    items.clear();
     notifyListeners();
   }
 
@@ -148,14 +157,14 @@ class CartManager extends ChangeNotifier {
     }
   }
 
-  Future<void> setAddress(Address address)async {
+  Future<void> setAddress(Address address) async {
     loading = true;
     this.address = address;
 
-    if(await calculateDelivery(address.long, address.lat)){
+    if (await calculateDelivery(address.long, address.lat)) {
       user.setAddress(address);
       loading = false;
-    }else{
+    } else {
       loading = false;
       return Future.error("Endereço fora do raio de entrega :(");
     }
@@ -173,25 +182,21 @@ class CartManager extends ChangeNotifier {
     final latStrore = doc.data["lat"] as double;
     final longStore = doc.data["long"] as double;
 
-
     final maxKm = doc.data["maxKm"] as num;
     final base = doc.data["base"] as num;
     final km = doc.data["km"] as num;
 
-    double dis = await Geolocator().distanceBetween(latStrore, longStore, lat, long);
+    double dis =
+        await Geolocator().distanceBetween(latStrore, longStore, lat, long);
 
     //transforma de metro em km
     dis /= 1000;
 
-
-    if(dis > maxKm){
+    if (dis > maxKm) {
       return false;
-    }else{
+    } else {
       deliveryPrice = base + dis * km;
       return true;
     }
-
-
-
   }
 }

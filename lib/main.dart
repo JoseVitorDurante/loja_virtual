@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_loja_ultimo/models/orders_manager.dart';
 import 'package:flutter_loja_ultimo/screens/address/address_screen.dart';
 import 'package:flutter_loja_ultimo/screens/bases/base_screen.dart';
 import 'package:flutter_loja_ultimo/screens/cart/cart_screen.dart';
 import 'package:flutter_loja_ultimo/screens/checkout/checkout_screen.dart';
+import 'package:flutter_loja_ultimo/screens/confirmation/confirmation_screen.dart';
 import 'package:flutter_loja_ultimo/screens/edit_product/edit_product_screen.dart';
 import 'package:flutter_loja_ultimo/screens/login/login_screen.dart';
 import 'package:flutter_loja_ultimo/screens/product/product_screen.dart';
@@ -10,9 +12,11 @@ import 'package:flutter_loja_ultimo/screens/select_product/select_product_screen
 import 'package:flutter_loja_ultimo/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'models/admin_orders_manager.dart';
 import 'models/admin_users_manager.dart';
 import 'models/cart_manager.dart';
 import 'models/home_manager.dart';
+import 'models/order.dart';
 import 'models/product.dart';
 import 'models/product_manager.dart';
 import 'models/user_manager.dart';
@@ -49,6 +53,18 @@ class MyApp extends StatelessWidget {
           lazy: false,
           update: (_, userManager, adminUsersManager) =>
               adminUsersManager..updateUser(userManager),
+        ),
+        ChangeNotifierProxyProvider<UserManager, AdminOrdersManager>(
+          create: (_) => AdminOrdersManager(),
+          lazy: false,
+          update: (_, userManager, adminOrdersManager) =>
+          adminOrdersManager..updateAdmin(userManager.adminEnabled),
+        ),
+        ChangeNotifierProxyProvider<UserManager, OrdersManager>(
+          create: (_) => OrdersManager(),
+          lazy: false,
+          update: (_, userManager, ordersManager) =>
+          ordersManager..updateUser(userManager.user),
         )
       ],
       child: MaterialApp(
@@ -71,7 +87,8 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) => ProductScreen(settings.arguments as Product));
             case '/cart':
-              return MaterialPageRoute(builder: (_) => CartScreen(), settings: settings);
+              return MaterialPageRoute(
+                  builder: (_) => CartScreen(), settings: settings);
             case '/edit_product':
               return MaterialPageRoute(
                   builder: (_) =>
@@ -82,9 +99,12 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => CheckoutScreen());
             case '/address':
               return MaterialPageRoute(builder: (_) => AddressScreen());
+            case '/confirmation':
+              return MaterialPageRoute(builder: (_) => ConfirmationScreen(settings.arguments as Order));
             case '/base':
             default:
-              return MaterialPageRoute(builder: (_) => BaseScreen());
+              return MaterialPageRoute(
+                  builder: (_) => BaseScreen(), settings: settings);
           }
         },
       ),
