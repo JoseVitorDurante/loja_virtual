@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_loja_ultimo/common/empty_card.dart';
+import 'package:flutter_loja_ultimo/common/login_card.dart';
 import 'package:flutter_loja_ultimo/common/price_card.dart';
 import 'package:flutter_loja_ultimo/models/cart_manager.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +17,12 @@ class CartScreen extends StatelessWidget {
       ),
       body: Consumer<CartManager>(
         builder: (_, cartManager, __){
+          if(cartManager.user == null){
+            return LoginCard();
+          }
+          if(cartManager.items.isEmpty){
+            return EmptyCard(iconData: Icons.remove_shopping_cart, title: "Nenhum produto no carrinho! ",);
+          }
           return ListView(
             children: <Widget>[
               Column(
