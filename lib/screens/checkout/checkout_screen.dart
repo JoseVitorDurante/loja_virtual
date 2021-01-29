@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_loja_ultimo/common/price_card.dart';
 import 'package:flutter_loja_ultimo/models/cart_manager.dart';
 import 'package:flutter_loja_ultimo/models/checkou_manager.dart';
-import 'package:flutter_loja_ultimo/models/page_manager.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutScreen extends StatelessWidget {

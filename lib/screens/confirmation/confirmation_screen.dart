@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_loja_ultimo/common/order/order_product_tile.dart';
 import 'package:flutter_loja_ultimo/models/order.dart';
-import 'file:///C:/Users/josev/AndroidStudioProjects/flutter_loja_ultimo/lib/screens/cart/components/order_product_tile.dart';
 
 class ConfirmationScreen extends StatelessWidget {
   final Order order;

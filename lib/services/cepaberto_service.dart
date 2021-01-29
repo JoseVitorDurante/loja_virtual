@@ -26,7 +26,7 @@ class CepAbertoService {
 
       return address;
     } on DioError catch (e) {
-      return Future.error('erro ao buscar o cep na api CEP_ABERTO');
+      return Future.error('erro ao buscar o cep na api CEP_ABERTO erro: $e');
     }
   }
 }

@@ -9,14 +9,17 @@ import 'order.dart';
 class AdminOrdersManager extends ChangeNotifier {
   User user;
 
-  List<Order> orders = [];
+  List<Order> _orders = [];
+
+  User userFilter;
+  List<Status> statusFilter = [Status.preparing];
 
   final Firestore firestore = Firestore.instance;
 
   StreamSubscription _subscription;
 
   void updateAdmin(bool adminEnabled) {
-    orders.clear();
+    _orders.clear();
 
     _subscription?.cancel();
     if (adminEnabled) {
@@ -26,12 +29,48 @@ class AdminOrdersManager extends ChangeNotifier {
 
   void _listenToOrders() {
     _subscription = firestore.collection("orders").snapshots().listen((event) {
-      orders.clear();
-      for (final doc in event.documents) {
-        orders.add(Order.fromDocument(doc));
+      for (final change in event.documentChanges) {
+        switch (change.type) {
+          case DocumentChangeType.added:
+            _orders.add(Order.fromDocument(change.document));
+            break;
+          case DocumentChangeType.modified:
+            final modOrder = _orders
+                .firstWhere((o) => o.orderId == change.document.documentID);
+            modOrder.updateFromDocument(change.document);
+            break;
+          case DocumentChangeType.removed:
+            // TODO: Handle this case.
+            print("deu problema serio");
+            break;
+        }
       }
       notifyListeners();
     });
+  }
+
+  List<Order> get filteredOrders {
+    List<Order> output = _orders.reversed.toList();
+
+    if (userFilter != null) {
+      output = output.where((o) => o.userId == userFilter.id).toList();
+    }
+
+    return output.where((o) => statusFilter.contains(o.status)).toList();
+  }
+
+  void setUserFilter(User user) {
+    userFilter = user;
+    notifyListeners();
+  }
+
+  void  setStatusFilter({Status status, bool enabled}){
+    if(enabled){
+      statusFilter.add(status);
+    }else{
+      statusFilter.remove(status);
+    }
+    notifyListeners();
   }
 
   @override

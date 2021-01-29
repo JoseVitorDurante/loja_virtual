@@ -5,7 +5,7 @@ import 'package:flutter_loja_ultimo/common/login_card.dart';
 import 'package:flutter_loja_ultimo/models/orders_manager.dart';
 import 'package:provider/provider.dart';
 
-import '../../common/order_tile.dart';
+import '../../common/order/order_tile.dart';
 
 class OrdersScreen extends StatelessWidget {
   @override

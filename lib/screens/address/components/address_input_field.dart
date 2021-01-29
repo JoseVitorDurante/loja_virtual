@@ -144,6 +144,7 @@ class AddressInputField extends StatelessWidget {
     }
   }
 
+  // ignore: missing_return
   String emptyValidator(String value) {
     if (value.isEmpty) return "Campo obrigatorio";
   }
