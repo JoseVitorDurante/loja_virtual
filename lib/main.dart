@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_loja_ultimo/models/orders_manager.dart';
+import 'package:flutter_loja_ultimo/models/stores_manager.dart';
 import 'package:flutter_loja_ultimo/screens/address/address_screen.dart';
 import 'package:flutter_loja_ultimo/screens/bases/base_screen.dart';
 import 'package:flutter_loja_ultimo/screens/cart/cart_screen.dart';
@@ -42,6 +43,9 @@ class MyApp extends StatelessWidget {
           create: (_) => HomeManager(),
           lazy: false,
         ),
+        ChangeNotifierProvider(
+          create: (_) => StoresManager(),
+        ),
         ChangeNotifierProxyProvider<UserManager, CartManager>(
           create: (_) => CartManager(),
           lazy: false,
@@ -58,13 +62,13 @@ class MyApp extends StatelessWidget {
           create: (_) => AdminOrdersManager(),
           lazy: false,
           update: (_, userManager, adminOrdersManager) =>
-          adminOrdersManager..updateAdmin(userManager.adminEnabled),
+              adminOrdersManager..updateAdmin(userManager.adminEnabled),
         ),
         ChangeNotifierProxyProvider<UserManager, OrdersManager>(
           create: (_) => OrdersManager(),
           lazy: false,
           update: (_, userManager, ordersManager) =>
-          ordersManager..updateUser(userManager.user),
+              ordersManager..updateUser(userManager.user),
         )
       ],
       child: MaterialApp(
@@ -76,7 +80,6 @@ class MyApp extends StatelessWidget {
           appBarTheme: const AppBarTheme(elevation: 0),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        initialRoute: '/base',
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case '/login':
@@ -100,8 +103,10 @@ class MyApp extends StatelessWidget {
             case '/address':
               return MaterialPageRoute(builder: (_) => AddressScreen());
             case '/confirmation':
-              return MaterialPageRoute(builder: (_) => ConfirmationScreen(settings.arguments as Order));
-            case '/base':
+              return MaterialPageRoute(
+                  builder: (_) =>
+                      ConfirmationScreen(settings.arguments as Order));
+            case '/':
             default:
               return MaterialPageRoute(
                   builder: (_) => BaseScreen(), settings: settings);

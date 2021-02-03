@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_loja_ultimo/common/custom_drawer/custom_drawer.dart';
 import 'package:flutter_loja_ultimo/models/page_manager.dart';
 import 'package:flutter_loja_ultimo/models/user_manager.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_loja_ultimo/screens/admin_users/admin_users_screen.dart'
 import 'package:flutter_loja_ultimo/screens/home/home_screen.dart';
 import 'package:flutter_loja_ultimo/screens/orders/orders_screen.dart';
 import 'package:flutter_loja_ultimo/screens/products/products_screen.dart';
+import 'package:flutter_loja_ultimo/screens/stores/stores_screen.dart';
 import 'package:provider/provider.dart';
 
 class BaseScreen extends StatefulWidget {
@@ -17,6 +19,15 @@ class BaseScreen extends StatefulWidget {
 
 class _BaseScreenState extends State<BaseScreen> {
   final PageController pageController = PageController();
+
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp
+    ]);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +42,7 @@ class _BaseScreenState extends State<BaseScreen> {
               HomeScreen(),
               ProductsScreen(),
               OrdersScreen(),
-              Scaffold(
-                drawer: CustomDrawer(),
-                appBar: AppBar(
-                  title: const Text('Home4'),
-                ),
-              ),
+              StoresScreen(),
               if(userManager.adminEnabled)
                 ...[
                   AdminUsersScreen(),

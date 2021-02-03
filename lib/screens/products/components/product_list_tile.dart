@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_loja_ultimo/models/product.dart';
 
@@ -14,11 +15,12 @@ class ProductListTile extends StatelessWidget {
         Navigator.of(context).pushNamed('/product', arguments: product);
       },
       child: Card(
+        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4)
         ),
         child: Container(
-          height: 100,
+          height: 110,
           padding: const EdgeInsets.all(8),
           child: Row(
             children: <Widget>[
@@ -56,7 +58,9 @@ class ProductListTile extends StatelessWidget {
                         fontWeight: FontWeight.w800,
                         color: Theme.of(context).primaryColor
                       ),
-                    )
+                    ),
+                    if(!product.hasStock)
+                      Padding(padding: EdgeInsets.only(top: 4),child: Text("Sem estoque", style: TextStyle(color: Colors.red, fontSize: 10),),)
                   ],
                 ),
               )
