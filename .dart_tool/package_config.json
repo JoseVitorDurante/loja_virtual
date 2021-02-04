@@ -8,6 +8,18 @@
       "languageVersion": "2.2"
     },
     {
+      "name": "archive",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/archive-2.0.13",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "args",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/args-1.6.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.3"
+    },
+    {
       "name": "async",
       "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/async-2.5.0-nullsafety.1",
       "packageUri": "lib/",
@@ -78,6 +90,12 @@
       "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/convert-2.1.1",
       "packageUri": "lib/",
       "languageVersion": "1.17"
+    },
+    {
+      "name": "credit_card_type_detector",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/credit_card_type_detector-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
     },
     {
       "name": "crypto",
@@ -176,16 +194,40 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "flip_card",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flip_card-0.4.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///C:/flutter/packages/flutter",
       "packageUri": "lib/",
       "languageVersion": "2.10"
     },
     {
+      "name": "flutter_facebook_login",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_facebook_login-3.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "flutter_launcher_icons",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_launcher_icons-0.7.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
+    },
+    {
       "name": "flutter_plugin_android_lifecycle",
       "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-1.0.11",
       "packageUri": "lib/",
       "languageVersion": "2.1"
+    },
+    {
+      "name": "flutter_signin_button",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_signin_button-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
     },
     {
       "name": "flutter_staggered_grid_view",
@@ -202,6 +244,12 @@
     {
       "name": "flutter_web_plugins",
       "rootUri": "file:///C:/flutter/packages/flutter_web_plugins",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "font_awesome_flutter",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/font_awesome_flutter-8.11.0",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -236,6 +284,12 @@
       "languageVersion": "2.3"
     },
     {
+      "name": "image",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/image-2.1.19",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "image_cropper",
       "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/image_cropper-1.3.1",
       "packageUri": "lib/",
@@ -243,13 +297,13 @@
     },
     {
       "name": "image_picker",
-      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/image_picker-0.6.7+21",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/image_picker-0.6.7+22",
       "packageUri": "lib/",
       "languageVersion": "2.1"
     },
     {
       "name": "image_picker_platform_interface",
-      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/image_picker_platform_interface-1.1.1",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/image_picker_platform_interface-1.1.6",
       "packageUri": "lib/",
       "languageVersion": "2.5"
     },
@@ -270,6 +324,18 @@
       "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/location_permissions-3.0.0+1",
       "packageUri": "lib/",
       "languageVersion": "2.1"
+    },
+    {
+      "name": "map_launcher",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/map_launcher-0.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
+      "name": "mask_text_input_formatter",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/mask_text_input_formatter-1.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
     },
     {
       "name": "matcher",
@@ -332,6 +398,12 @@
       "languageVersion": "2.1"
     },
     {
+      "name": "petitparser",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/petitparser-3.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
       "name": "platform",
       "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/platform-2.2.1",
       "packageUri": "lib/",
@@ -351,7 +423,7 @@
     },
     {
       "name": "provider",
-      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/provider-4.3.2+3",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/provider-4.3.3",
       "packageUri": "lib/",
       "languageVersion": "2.7"
     },
@@ -434,6 +506,42 @@
       "languageVersion": "2.10"
     },
     {
+      "name": "url_launcher",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/url_launcher-5.7.10",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "url_launcher_linux",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/url_launcher_linux-0.0.1+4",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "url_launcher_macos",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/url_launcher_macos-0.0.1+9",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "url_launcher_platform_interface",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/url_launcher_platform_interface-1.0.9",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "url_launcher_web",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/url_launcher_web-0.1.5+3",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
+    },
+    {
+      "name": "url_launcher_windows",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/url_launcher_windows-0.0.1+3",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "uuid",
       "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/uuid-2.2.2",
       "packageUri": "lib/",
@@ -459,7 +567,7 @@
     },
     {
       "name": "win32",
-      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/win32-1.7.4",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/win32-1.7.4+1",
       "packageUri": "lib/",
       "languageVersion": "2.7"
     },
@@ -470,13 +578,25 @@
       "languageVersion": "2.3"
     },
     {
+      "name": "xml",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/xml-4.5.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
+      "name": "yaml",
+      "rootUri": "file:///C:/Users/josev/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/yaml-2.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.4"
+    },
+    {
       "name": "flutter_loja_ultimo",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-01-29T00:01:41.319673Z",
+  "generated": "2021-02-03T23:26:56.358162Z",
   "generator": "pub",
   "generatorVersion": "2.10.5"
 }
