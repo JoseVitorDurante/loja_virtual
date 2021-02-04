@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_loja_ultimo/common/custom_icon_button.dart';
 import 'package:flutter_loja_ultimo/models/store.dart';
+import 'package:map_launcher/map_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class StoreCard extends StatelessWidget {
   final Store store;
@@ -10,6 +12,73 @@ class StoreCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
+
+    void showError(Error e){
+      Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text("${e} + função de abrir maps ou telefone"),
+        backgroundColor: Colors.red,
+      ));
+    }
+
+    Future<void> openPhone() async {
+      if (await canLaunch("tel:${store.cleanPhone}"))
+        launch("tel:${store.cleanPhone}");
+      else
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text("Não e suportado em seu aparelho"),
+          backgroundColor: Colors.red,
+        ));
+    }
+
+    Future<void> openMap() async {
+      try {
+        final availableMaps = await MapLauncher.installedMaps;
+
+        showModalBottomSheet(
+            context: context,
+            builder: (_) {
+              return SafeArea(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    for (final map in availableMaps)
+                      ListTile(
+                          onTap: () {
+                            map.showMarker(
+                              coords:
+                                  Coords(store.address.lat, store.address.long),
+                              title: store.name,
+                              description: store.addressText,
+                            );
+                            Navigator.of(context).pop();
+                          },
+                          title: Text(map.mapName),
+                          leading: Image(
+                            image: map.icon,
+                            width: 30,
+                            height: 30,
+                          ))
+                  ],
+                ),
+              );
+            });
+      } catch (e) {
+        showError(e);
+      }
+    }
+
+    Color colorForStatus(StoreStatus status) {
+      switch (status) {
+        case StoreStatus.closed:
+          return Colors.red;
+        case StoreStatus.open:
+          return Colors.green;
+        case StoreStatus.closing:
+          return Colors.purple;
+        default:
+          return Colors.black;
+      }
+    }
 
     return Card(
       clipBehavior: Clip.antiAlias,
@@ -21,15 +90,18 @@ class StoreCard extends StatelessWidget {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                Image.network(store.image, fit: BoxFit.cover,),
+                Image.network(
+                  store.image,
+                  fit: BoxFit.cover,
+                ),
                 Align(
                   alignment: Alignment.topRight,
                   child: Container(
                     padding: EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8))
-                    ),
+                        color: Colors.white,
+                        borderRadius:
+                            BorderRadius.only(bottomLeft: Radius.circular(8))),
                     child: Text(
                       store.statusText,
                       style: TextStyle(
@@ -75,12 +147,12 @@ class StoreCard extends StatelessWidget {
                     CustomIconButton(
                       iconData: Icons.map,
                       color: primaryColor,
-                      onTap: () {},
+                      onTap: openMap,
                     ),
                     CustomIconButton(
                       iconData: Icons.phone,
                       color: primaryColor,
-                      onTap: () {},
+                      onTap: openPhone,
                     ),
                   ],
                 ),
@@ -90,18 +162,5 @@ class StoreCard extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Color colorForStatus(StoreStatus status){
-    switch (status) {
-      case StoreStatus.closed:
-        return Colors.red;
-      case StoreStatus.open:
-        return Colors.green;
-      case StoreStatus.closing:
-        return Colors.purple;
-      default:
-        return Colors.black;
-    }
   }
 }

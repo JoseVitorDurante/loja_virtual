@@ -40,6 +40,8 @@ class Store {
 
     updateStatus();
   }
+  
+  String get cleanPhone => phone.replaceAll(RegExp(r"[^\d]"), "");
 
   String name;
 
