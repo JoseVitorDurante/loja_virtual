@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_loja_ultimo/models/credit_card.dart';
 import 'package:flutter_loja_ultimo/models/order.dart';
 import 'package:flutter_loja_ultimo/models/product.dart';
+import 'package:flutter_loja_ultimo/services/cielo_payment.dart';
 
 import 'cart_manager.dart';
 
@@ -11,36 +13,64 @@ class CheckoutManager extends ChangeNotifier {
   bool _loading = false;
 
   bool get loading => _loading;
-  set loading(bool value){
+
+  set loading(bool value) {
     _loading = value;
     notifyListeners();
   }
 
   final Firestore firestore = Firestore.instance;
 
+  final CieloPayment cieloPayment = CieloPayment();
+
   // ignore: use_setters_to_change_properties
   void updateCart(CartManager cartManager) {
     this.cartManager = cartManager;
   }
 
-  Future<void> checkout({Function onStockFail, Function onSuccess}) async {
+  Future<void> checkout(
+      {CreditCard creditCard,
+      Function onStockFail,
+      Function onSuccess,
+      Function onPayFail}) async {
     loading = true;
+
+    final orderId = await _getOrderId();
+    String payId;
+
+    try {
+      payId = await cieloPayment.authorize(
+          creditCard: creditCard,
+          price: cartManager.totalPrice,
+          orderId: orderId.toString(),
+          user: cartManager.user);
+    } catch (e) {
+      onPayFail(e);
+      loading = false;
+      return;
+    }
+
     try {
       await _decrementStock();
     } catch (e) {
+      cieloPayment.cancel(payId);
       onStockFail(e);
       debugPrint(e.toString());
       loading = false;
       return;
     }
 
-    //todo processar pagamento
-
-    final orderId = await _getOrderId();
+    try {
+      await cieloPayment.capture(payId);
+    } catch (e) {
+      onPayFail(e);
+      loading = false;
+      return;
+    }
 
     final order = Order.fromCartManager(cartManager);
-
     order.orderId = orderId.toString();
+    order.payId = payId;
 
     await order.save();
 

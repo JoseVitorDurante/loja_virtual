@@ -65,7 +65,10 @@ class OrderTile extends StatelessWidget {
                 children: [
                   FlatButton(
                     onPressed: () {
-                      showDialog(context: context, builder: (context) => CancelOrderDialog(order));
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (context) => CancelOrderDialog(order));
                     },
                     child: Text("Cancelar"),
                     textColor: Colors.red,
@@ -80,7 +83,10 @@ class OrderTile extends StatelessWidget {
                   ),
                   FlatButton(
                     onPressed: () {
-                      showDialog(context: context, builder: (context) => ExportAddressDialog(order.address));
+                      showDialog(
+                          context: context,
+                          builder: (context) =>
+                              ExportAddressDialog(order.address));
                     },
                     child: Text("Endereço"),
                     textColor: Colors.green,

@@ -1,5 +1,6 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_loja_ultimo/models/credit_card.dart';
 import "package:flutter_loja_ultimo/screens/checkout/components/card_back.dart";
 import "package:flutter_loja_ultimo/screens/checkout/components/card_front.dart";
 
@@ -10,6 +11,10 @@ class CreditCardWidget extends StatelessWidget {
   final FocusNode dateFocus = FocusNode();
   final FocusNode nameFocus = FocusNode();
   final FocusNode cvvFocus = FocusNode();
+
+  final CreditCard creditCard;
+
+  CreditCardWidget(this.creditCard);
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +28,18 @@ class CreditCardWidget extends StatelessWidget {
             speed: 700,
             key: cardKey,
             flipOnTouch: false,
-            front: CardFront(numberFocus, dateFocus, nameFocus, () {
-              cardKey.currentState.toggleCard();
-              cvvFocus.requestFocus();
-            }),
+            front: CardFront(
+                dateFocus: dateFocus,
+                nameFocus: nameFocus,
+                numberFocus: numberFocus,
+                creditCard: creditCard,
+                finishedFront: () {
+                  cardKey.currentState.toggleCard();
+                  cvvFocus.requestFocus();
+                }),
             back: CardBack(
-              cvvFocus,
+              creditCard: creditCard,
+              cvvFocus: cvvFocus,
             ),
           ),
           FlatButton(

@@ -1,3 +1,4 @@
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_loja_ultimo/models/orders_manager.dart';
 import 'package:flutter_loja_ultimo/models/stores_manager.dart';
@@ -22,7 +23,7 @@ import 'models/product.dart';
 import 'models/product_manager.dart';
 import 'models/user_manager.dart';
 
-void main() {
+Future<void> main() async {
   runApp(MyApp());
 }
 

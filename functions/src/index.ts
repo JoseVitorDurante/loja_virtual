@@ -1,11 +1,14 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
-import { CieloConstructor, Cielo, TransactionCreditCardRequestModel, EnumBrands} from 'cielo';
+import { CieloConstructor, Cielo, TransactionCreditCardRequestModel, EnumBrands, CaptureRequestModel, CancelTransactionRequestModel } from 'cielo';
 
-//, CaptureRequestModel, CancelTransactionRequestModel, TransactionCreditCardResponseModel
 
 admin.initializeApp(functions.config().firebase);
+
+//tudo isso em ambiente de teste para realizar o pagamento de verdade 
+//Curso "Crie uma loja virtual Completa"
+//Aula "174"
 
 const merchantId = functions.config().cielo.merchantid;
 const merchantKey = functions.config().cielo.merchantkey;
@@ -13,14 +16,14 @@ const merchantKey = functions.config().cielo.merchantkey;
 const cieloParams: CieloConstructor = {
     merchantId: merchantId,
     merchantKey: merchantKey,
-    sandbox: true,
+    sandbox: true, // modo teste
     debug: true,
 }
 
 const cielo = new Cielo(cieloParams);
 
 export const authorizeCreditCard = functions.https.onCall(async (data, context) => {
-    if(data === null){
+    if (data === null) {
         return {
             "success": false,
             "error": {
@@ -30,7 +33,7 @@ export const authorizeCreditCard = functions.https.onCall(async (data, context) 
         };
     }
 
-    if(!context.auth){
+    if (!context.auth) {
         return {
             "success": false,
             "error": {
@@ -48,7 +51,7 @@ export const authorizeCreditCard = functions.https.onCall(async (data, context) 
     console.log("Iniciando Autorização");
 
     let brand: EnumBrands;
-    switch(data.creditCard.brand){
+    switch (data.creditCard.brand) {
         case "VISA":
             brand = EnumBrands.VISA;
             break;
@@ -122,14 +125,14 @@ export const authorizeCreditCard = functions.https.onCall(async (data, context) 
     try {
         const transaction = await cielo.creditCard.transaction(saleData);
 
-        if(transaction.payment.status === 1){
+        if (transaction.payment.status === 1) {
             return {
                 "success": true,
                 "paymentId": transaction.payment.paymentId
             }
         } else {
             let message = '';
-            switch(transaction.payment.returnCode) {
+            switch (transaction.payment.returnCode) {
                 case '5':
                     message = 'Não Autorizada';
                     break;
@@ -161,7 +164,7 @@ export const authorizeCreditCard = functions.https.onCall(async (data, context) 
                 }
             }
         }
-    } catch (error){
+    } catch (error) {
         console.log("Error ", error);
         return {
             "success": false,
@@ -172,4 +175,114 @@ export const authorizeCreditCard = functions.https.onCall(async (data, context) 
         };
     }
 
+});
+
+export const captureCreditCard = functions.https.onCall(async (data, context) => {
+    if (data === null) {
+        return {
+            "success": false,
+            "error": {
+                "code": -1,
+                "message": "Dados não informados"
+            }
+        };
+    }
+
+    if (!context.auth) {
+        return {
+            "success": false,
+            "error": {
+                "code": -1,
+                "message": "Nenhum usuário logado"
+            }
+        };
+    }
+
+    const captureParams: CaptureRequestModel = {
+        paymentId: data.payId,
+    };
+
+
+    try {
+        const capture = await cielo.creditCard.captureSaleTransaction(captureParams);
+
+        if (capture.status === 2) {
+            return {
+                "success": true
+            };
+        } else {
+            return {
+                "success": false,
+                "status": capture.status,
+                "error": {
+                    "code": capture.status,
+                    "message": capture.returnMessage
+                }
+            };
+        }
+    } catch (error) {
+        console.log("Error ", error);
+        return {
+            "success": false,
+            "error": {
+                "code": "1",
+                "message": "2"
+            }
+        };
+    }
+});
+
+export const cancelCreditCard = functions.https.onCall(async (data, context) => {
+    if (data === null) {
+        return {
+            "success": false,
+            "error": {
+                "code": -1,
+                "message": "Dados não informados"
+            }
+        };
+    }
+
+    if (!context.auth) {
+        return {
+            "success": false,
+            "error": {
+                "code": -1,
+                "message": "Nenhum usuário logado"
+            }
+        };
+    }
+
+    const cancelParams: CancelTransactionRequestModel = {
+        paymentId: data.payId,
+    };
+
+
+    try {
+        const cancel = await cielo.creditCard.cancelTransaction(cancelParams);
+
+        if (cancel.status === 10 || cancel.status === 11) {
+            return {
+                "success": true
+            };
+        } else {
+            return {
+                "success": false,
+                "status": cancel.status,
+                "error": {
+                    "code": cancel.status,
+                    "message": cancel.returnMessage
+                }
+            };
+        }
+    } catch (error) {
+        console.log("Error ", error);
+        return {
+            "success": false,
+            "error": {
+                "code": "1",
+                "message": "2"
+            }
+        };
+    }
 });
