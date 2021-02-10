@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\josev\\AndroidStudioProjects\\flutter_loja_ultimo\\build\\flutter_plugin_android_lifecycle\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-th\\values-th.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\josev\\.gradle\\caches\\transforms-2\\files-2.1\\cc05cbb20248c793dee14f7d6605fdfb\\core-1.1.0\\res\\values-th\\values-th.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "C:\\Users\\josev\\AndroidStudioProjects\\flutter_loja_ultimo\\build\\flutter_plugin_android_lifecycle\\intermediates\\res\\merged\\release\\values-th\\values-th.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\josev\\.gradle\\caches\\transforms-2\\files-2.1\\cc05cbb20248c793dee14f7d6605fdfb\\core-1.1.0\\res\\values-th\\values-th.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}

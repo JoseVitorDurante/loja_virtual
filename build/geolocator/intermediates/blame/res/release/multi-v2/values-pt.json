@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\josev\\AndroidStudioProjects\\flutter_loja_ultimo\\build\\geolocator\\intermediates\\res\\merged\\release\\values-pt\\values-pt.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\josev\\.gradle\\caches\\transforms-2\\files-2.1\\5e415dcf0171c2769a7c07769f1a2292\\core-1.2.0\\res\\values-pt\\values-pt.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "C:\\Users\\josev\\AndroidStudioProjects\\flutter_loja_ultimo\\build\\geolocator\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-pt\\values-pt.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\josev\\.gradle\\caches\\transforms-2\\files-2.1\\5e415dcf0171c2769a7c07769f1a2292\\core-1.2.0\\res\\values-pt\\values-pt.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}
