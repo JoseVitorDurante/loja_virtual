@@ -1,6 +1,9 @@
+import 'dart:io';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_loja_ultimo/common/custom_drawer/custom_drawer.dart';
 import 'package:flutter_loja_ultimo/models/page_manager.dart';
 import 'package:flutter_loja_ultimo/models/user_manager.dart';
 import 'package:flutter_loja_ultimo/screens/admin_orders/admin_orders_screen.dart';
@@ -12,7 +15,6 @@ import 'package:flutter_loja_ultimo/screens/stores/stores_screen.dart';
 import 'package:provider/provider.dart';
 
 class BaseScreen extends StatefulWidget {
-
   @override
   _BaseScreenState createState() => _BaseScreenState();
 }
@@ -20,13 +22,50 @@ class BaseScreen extends StatefulWidget {
 class _BaseScreenState extends State<BaseScreen> {
   final PageController pageController = PageController();
 
-
   @override
   void initState() {
     super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp
-    ]);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+    configFCM();
+  }
+
+  void configFCM() {
+    final fcm = FirebaseMessaging();
+
+    if (Platform.isIOS) {
+      fcm.requestNotificationPermissions(
+          const IosNotificationSettings(provisional: true));
+    }
+
+    fcm.configure(onLaunch: (Map<String, dynamic> message) async {
+      //qunado esta fechado
+    }, onResume: (Map<String, dynamic> message) async {
+      //quando esta em segundo plano
+    }, onMessage: (Map<String, dynamic> message) async {
+      //quando esta aberto
+      print(message);
+      showNotification(
+        message["notification"]["title"] as String,
+        message["notification"]["body"] as String,
+      );
+    });
+  }
+
+  void showNotification(String title, String message) {
+    Flushbar(
+      title: title,
+      message: message,
+      flushbarPosition: FlushbarPosition.TOP,
+      flushbarStyle: FlushbarStyle.GROUNDED,
+      isDismissible: true,
+      backgroundColor: Theme.of(context).primaryColor,
+      duration: const Duration(seconds: 7),
+      icon: Icon(
+        Icons.shopping_cart,
+        color: Colors.white,
+      ),
+    ).show(context);
   }
 
   @override
@@ -34,7 +73,7 @@ class _BaseScreenState extends State<BaseScreen> {
     return Provider(
       create: (_) => PageManager(pageController),
       child: Consumer<UserManager>(
-        builder: (_, userManager, __){
+        builder: (_, userManager, __) {
           return PageView(
             controller: pageController,
             physics: const NeverScrollableScrollPhysics(),
@@ -43,11 +82,10 @@ class _BaseScreenState extends State<BaseScreen> {
               ProductsScreen(),
               OrdersScreen(),
               StoresScreen(),
-              if(userManager.adminEnabled)
-                ...[
-                  AdminUsersScreen(),
-                  AdminOrdersScreen(),
-                ]
+              if (userManager.adminEnabled) ...[
+                AdminUsersScreen(),
+                AdminOrdersScreen(),
+              ]
             ],
           );
         },
